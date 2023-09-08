@@ -1,0 +1,44 @@
+package _2023년._9월.medium;
+
+import java.util.*;
+
+public class InsertDeleteGetRandomO1 {
+
+    private Map<Integer, Integer> map;
+    private List<Integer> list;
+    private Random random;
+
+    public InsertDeleteGetRandomO1() {
+        map = new HashMap<>();
+        list = new ArrayList<>();
+        random = new Random();
+    }
+
+    public boolean insert(int val) {
+        if(map.containsKey(val))
+            return false;
+
+        map.put(val, list.size());
+        list.add(val);
+        return true;
+    }
+
+    public boolean remove(int val) {
+        if(!map.containsKey(val))
+            return false;
+
+        int index = map.get(val);
+        int last = list.get(list.size()-1);
+        list.set(index, last);
+
+        map.put(last, index);
+        map.remove(val);
+        list.remove(list.size()-1);
+        return true;
+    }
+
+    public int getRandom() {
+        int index = random.nextInt(list.size());
+        return list.get(index);
+    }
+}
